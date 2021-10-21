@@ -131,5 +131,5 @@ class Actor(db.Model):
     def format(self):
         return {
             'id': self.id,
-            'movie': self.movie
+            'name': self.name
         }
