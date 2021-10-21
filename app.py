@@ -23,19 +23,89 @@ def home():
     return render_template("index.html", data=['name', 'hello'])
 
 
-@app.route('/<name>')
-def user_page(name='user'):
-    return render_template("index.html", data=[name, 2, 3])
+@app.route('/movies', methods=['GET'])
+def movies():
+    result = Movie.query.all()
+    all_movies = [mov.format() for mov in result]
+    return jsonify({
+        "success": True,
+        "movies": all_movies,
+        "total movies": len(result)
+    })
 
 
-@app.route('/admin')
-def admin():
-    return redirect(url_for("user_page", name="Admin"))
+@app.route('/movies', methods=['POST'])
+def add_movie():
+    body = request.get_data()
+    print(body)
+    if not body:
+        abort(400)
+    else:
+        title = body.get('title')
+        release_date = body.get('release_date')
+        description = body.get('description')
+        try:
+            new_movie = Movie(
+                title=title, release_date=release_date, description=description)
+            new_movie.insert()
+
+            added_movie = new_movie.format()
+            return json({
+                'success': True,
+                'added movie': added_movie
+            })
+        except:
+            abort(422)
 
 
-@app.route('/page')
-def page():
-    return('hello! page')
+@app.route('/movies/<int:movie_id>', methods=['GET'])
+def get_movie_by_id(movie_id):
+    result = Movie.query.filter(Movie.id == movie_id).one_or_none()
+    if not result:
+        abort(400)
+    else:
+        data = [result.format()]
+        return jsonify({
+            'success': True,
+            'movie data': data
+        })
+
+
+@app.route('/movies/<int:movie_id>/actors', methods=['GET'])
+def get_actors_by_movie_id(movie_id):
+    result = Movie.query.filter(Movie.id == movie_id).one_or_none()
+    if not result:
+        abort(400)
+    else:
+        data = [act.format() for act in result.actors]
+        return jsonify({
+            "success": True,
+            "actors": data
+        })
+
+
+@app.route('/actors', methods=['GET'])
+def actors():
+    result = Actor.query.all()
+    all_actors = [act.format() for act in result]
+    return jsonify({
+        "success": True,
+        "movies": all_actors,
+        "total actors": len(result)
+    })
+
+
+@app.route('/actors/<int:actor_id>', methods=['GET'])
+def get_actor_by_id(actor_id):
+    result = Actor.query.filter(Actor.id == actor_id).one_or_none()
+    if not result:
+        abort(400)
+    else:
+        data = [result.format()]
+        return jsonify({
+            'success': True,
+            'actor data': data
+        })
 
     # return app
 
