@@ -9,12 +9,27 @@ I would like to refer to this page it helped me with decode header:'https://www.
 # --------------------------------------------------------------------------------------#
 
 import json
-from flask import request, _request_ctx_stack
+from flask import request, _request_ctx_stack, abort
 from functools import wraps
 from jose import jwt
 from urllib.request import urlopen
-from os import environ, error
-from config import *
+from os import environ
+
+'''
+Default data for AUTH0
+'''
+
+# AUTH0_DOMAIN = 'udacity-fsnd.auth0.com'
+# ALGORITHMS = ['RS256']
+# API_AUDIENCE = 'dev'
+
+# --------------------------------------------------------------------------------------#
+# AUTH0 config.
+# --------------------------------------------------------------------------------------#
+
+AUTH0_DOMAIN = environ.get('AUTH0_DOMAIN', 'dev-uiw51rx8.us.auth0.com')
+ALGORITHMS = ['RS256']
+API_AUDIENCE = environ.get('API_AUDIENCE', 'http://localhost:5000')
 
 
 # --------------------------------------------------------------------------------------#
@@ -41,21 +56,21 @@ def get_token_auth_header():
     auth_header = request.headers.get('Authorization', '')
 
     if not auth_header:
-        raise Exception({'success': False,
-                        'message': 'Missing Authorization',
-                         'error': 401}, 401)
+        raise AuthError({"code": "authorization_header_missing",
+                         "description":
+                         "Authorization header is expected"}, 401)
 
     header_parts = auth_header.split(' ')
 
-    if len(header_parts) != 2:
-        raise Exception({'success': False,
-                         'message': 'Header not in format',
-                         'error': '401'}, 401)
+    if len(header_parts) != 2 or not header_parts:
+        raise AuthError({'code': 'invalid_header',
+                        'description': 'Authorization header must be in the format'
+                         ' Bearer token'}, 401)
 
     elif header_parts[0].lower() != 'bearer':
-        raise Exception({'success': False,
-                         'message': 'Missian bearer',
-                         'error': '401'}, 401)
+        raise AuthError({
+            'code': 'invalid_header',
+            'description': 'Authorization header must start with Bearer'}, 401)
 
     return header_parts[1]
 
@@ -69,15 +84,13 @@ def get_token_auth_header():
 
 def check_permissions(permission, payload):
     if 'permissions' not in payload:
-        raise Exception({'success': False,
-                        'message': 'No Permissions in header',
-                         'error': '401'}, 401)
+        abort(400)
 
     if permission not in payload['permissions']:
-        raise Exception({'success': False,
-                        'message': 'unauthorized',
-                         'error': '401',
-                         }, 401)
+        raise AuthError({
+            'code': 'unauthorized',
+            'description': 'Permission Not found',
+        }, 403)
     return True
 
 
@@ -97,10 +110,10 @@ def verify_decode_jwt(token):
 
     rsa_key = {}
     if 'kid' not in unverified_header:
-        raise Exception({'success': False,
-                        'message': 'invalid Authorization malformed',
-                         'error': 401
-                         }, 401)
+        raise AuthError({
+            'code': 'invalid_header',
+            'description': 'Authorization malformed'
+        }, 401)
 
     for key in jwks['keys']:
         if key['kid'] == unverified_header['kid']:
@@ -125,25 +138,26 @@ def verify_decode_jwt(token):
             return payload
 
         except jwt.ExpiredSignatureError:
-            raise AuthError({'success': False,
-                             'message': 'session is expired',
-                             'error': '401'
-                             }, 401)
+            raise AuthError({
+                'code': 'token_expired',
+                'description': 'Token expired.'
+            }, 401)
 
         except jwt.JWTClaimsError:
-            raise AuthError({'success': False,
-                             'message': 'Invalid claims',
-                             'error': '401'
-                             }, 401)
+            raise AuthError({
+                'code': 'invalid_claims',
+                'description': 'Incorrect claims. Please, '
+                'check the audience and issuer.'
+            }, 401)
         except Exception:
-            raise AuthError({'success': False,
-                             'message': 'Invalid header',
-                             'error': '400'
-                             }, 400)
-    raise AuthError({'success': False,
-                    'message': 'invalid appropriate key',
-                     'error': '400'
-                     }, 400)
+            raise AuthError({
+                'code': 'invalid_header',
+                'description': 'Unable to parse authentication token.'
+            }, 400)
+    raise AuthError({
+        'code': 'invalid_header',
+        'description': 'Unable to find the appropriate key.'
+    }, 403)
 
 
 # --------------------------------------------------------------------------------------#
