@@ -191,9 +191,11 @@ In order to use the API users need to be authenticated. Jwt tokens can be genera
 
 ```json
 {
+    
     "id": 3,
     "name": "John"
   },
+  {
   "success": true
 }
 ```
