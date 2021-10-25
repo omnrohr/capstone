@@ -1,3 +1,13 @@
+
+"""
+Obadah alahdab
+capston app.py - app data modeling
+Python 3.9
+"""
+
+#----------------------------------------------------------------------------#
+# Imports
+#----------------------------------------------------------------------------#
 from sqlalchemy import Table, Column, Integer, ForeignKey, String, Date
 from flask_sqlalchemy import SQLAlchemy
 import os
@@ -55,6 +65,10 @@ def insert_demo_data():
     movie2.insert()
     movie3.insert()
 
+#----------------------------------------------------------------------------#
+# Models.
+#----------------------------------------------------------------------------#
+
 
 movie_actor = db.Table(
     'movies_actors',
@@ -63,13 +77,10 @@ movie_actor = db.Table(
     db.Column('actor.id', db.Integer,
               db.ForeignKey('actors.id'), primary_key=True)
 )
-'''
-Movies
-'''
 
 
 class Movie(db.Model):
-    ''' Define'''
+    ''' Movie database creation and data types" '''
     __tablename__ = 'movies'
 
     id = Column(Integer, primary_key=True)
@@ -104,13 +115,8 @@ class Movie(db.Model):
         }
 
 
-'''
-Actrors
-'''
-
-
 class Actor(db.Model):
-    ''' Define'''
+    ''' Actors database creation and data types" '''
     __tablename__ = 'actors'
 
     id = Column(Integer, primary_key=True)
