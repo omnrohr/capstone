@@ -1,3 +1,7 @@
+#----------------------------------------------------------------------------#
+# Imports
+#----------------------------------------------------------------------------#
+
 import os
 from flask import Flask, request, abort, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
@@ -5,6 +9,10 @@ from flask_cors import CORS
 
 from models import Movie, Actor, setup_db, db_drop_and_create_all, insert_demo_data, db
 from auth import AuthError, requires_auth
+
+#----------------------------------------------------------------------------#
+# App Config.
+#----------------------------------------------------------------------------#
 
 
 def create_app():
@@ -15,6 +23,10 @@ def create_app():
     app.config.from_object('config')
     db_drop_and_create_all()
     insert_demo_data()
+
+    #----------------------------------------------------------------------------#
+    # Controllers.
+    #----------------------------------------------------------------------------#
 
     @app.route('/')
     def home():
