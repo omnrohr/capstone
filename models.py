@@ -1,3 +1,4 @@
+import secrets
 from sqlalchemy import Table, Column, Integer, ForeignKey, String, Date
 from flask_sqlalchemy import SQLAlchemy
 from config import *
