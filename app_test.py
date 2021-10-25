@@ -6,17 +6,20 @@ import os
 import unittest
 import json
 from flask_sqlalchemy import SQLAlchemy
-
 from app import create_app
 from models import Movie, Actor, setup_db
 
 
 #----------------------------------------------------------------------------#
-# App Config.
+# Varibles Config.
 #----------------------------------------------------------------------------#
 
 MANAGER_TOKEN = os.environ.get('MANAGER_TOKEN', 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik1KUnctNEpnWEw5V253bU1HN2FrdSJ9.eyJpc3MiOiJodHRwczovL2Rldi11aXc1MXJ4OC51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjE1YmU4ZWRmZTM5YmIwMDY5MjA2NzRiIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAwIiwiaWF0IjoxNjM1MDkyMzcxLCJleHAiOjE2MzUwOTk1NzEsImF6cCI6IldVbTY2bHExSmtqTnlHZVNLeXZvendHYWlpMXRlNVZKIiwic2NvcGUiOiIiLCJwZXJtaXNzaW9ucyI6WyJlZGl0OmFsbF9kYXRhIiwicmVhZDphbGxfZGF0YSJdfQ.SVZqZ95B3lwkHdClqpRf2fDsrtOGt36jzC8eo21aFa56I0ADODsIx-AYtwCunMY3j8fW8982vIx-SxXVY5kl3BELKVh-AKPgFfyQ7rEOJS2baAQBxqrstdxx44TRsasatlHY2Ssk_oV-kand5kRHs6p9o0dc62QKKirIx2P-lnqFY3whMBQoPmwpAYHu8p5U6xAvgXaOm3pJ4qRpN-KW5ySAJMhXPy66TZHj_PIdTiQ1wup684Eskd0AKfutITTvXQrllv8a5zctI0_0HX7RnPTfFK2jYbN93Msm9FHzmIvchLERq1qpTnliV-WUa_F51vCOfV0Ub5baXWPmkMQ6Sg')
 USER_TOKEN = os.environ.get('USER_TOKEN', 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik1KUnctNEpnWEw5V253bU1HN2FrdSJ9.eyJpc3MiOiJodHRwczovL2Rldi11aXc1MXJ4OC51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjE1YzE2NmVjYWMzN2YwMDY4NDU4MDI0IiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAwIiwiaWF0IjoxNjM1MDkyNDk3LCJleHAiOjE2MzUwOTk2OTcsImF6cCI6IldVbTY2bHExSmtqTnlHZVNLeXZvendHYWlpMXRlNVZKIiwic2NvcGUiOiIiLCJwZXJtaXNzaW9ucyI6WyJyZWFkOmFsbF9kYXRhIl19.p2Nf-oJo_dcPQ1NboUX1YW2fmQtEkDrD4pEgcx6RmaKmIVYOFAhAkKII57GrDGqPQFocWFfT2UbX5N2veiz8EeEuoSWW4Zwf2bAfn34e0yoRUfdrdRHEuKG5dsLV3Fbt9BBPF21604BB7vgJZJtXaBuvGWUKWL0et33NATdGqa2oQs81DuYkkvQI4lEMp_HzLPfgYcooHi-sZxZ7TVpfqhXno38xe8hlygm5GUNDBPV1qNgSBd0vppI9xaO1cPsrlGY1vyQpIfXU-LYGnwTsAFxwP8B5x_2_dKrrIcjolE4C3cmSHUteE7TvDwztYx_Hc6sDYqKC5TSar9uej42OXw')
+
+#----------------------------------------------------------------------------#
+# App Config.
+#----------------------------------------------------------------------------#
 
 
 class CastingAgencyTestCase(unittest.TestCase):
@@ -55,7 +58,7 @@ class CastingAgencyTestCase(unittest.TestCase):
         self.db.session.close()
 
 # ---------------------------------------------------------------------------------
-# SETUP TESTS
+# TESTS
 # ---------------------------------------------------------------------------------
 
     def setUp(self):
@@ -95,7 +98,8 @@ class CastingAgencyTestCase(unittest.TestCase):
 # ---------------------------------------------------------------------------------
 
     # -----------------------------------------------------------------------------
-    # Without headers
+    # Test Without headers
+    # -----------------------------------------------------------------------------
 
     def test_get_movies_with_NO_HEADERS(self):
         res = self.client().get('/movies')
@@ -218,6 +222,7 @@ class CastingAgencyTestCase(unittest.TestCase):
 
     # -----------------------------------------------------------------------------
     # Test Without headers
+    # -----------------------------------------------------------------------------
 
     def test_get_ators_by_movie_with_NO_HEADERS(self):
         res = self.client().get('/movies/2/actors')
@@ -277,7 +282,6 @@ class CastingAgencyTestCase(unittest.TestCase):
     # -----------------------------------------------------------------------------
     # Test Without headers
     # -----------------------------------------------------------------------------
-
 
     def test_get_actors_with_NO_HEADERS(self):
         res = self.client().get('/actors')
@@ -356,6 +360,6 @@ class CastingAgencyTestCase(unittest.TestCase):
         self.assertEqual(res.status_code, 403)
 
 
-# Make the tests conveniently executable
+# run the test.
 if __name__ == "__main__":
     unittest.main()
