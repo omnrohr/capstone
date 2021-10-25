@@ -12,11 +12,11 @@ def create_app():
     app = Flask(__name__)
     setup_db(app)
     app.secret_key = "secret key"
-    CORS(app, resources={r"/api/*": {"origins": "*"}})
+    CORS(app)
 
     app.config.from_object('config')
 
-    db_drop_and_create_all()
+    # db_drop_and_create_all()
     insert_demo_data()
 
     @app.route('/')
@@ -269,4 +269,4 @@ def create_app():
 app = create_app()
 
 if __name__ == '__main__':
-    app.run(debug=app.config['DEBUG'], port=app.config['PORT'])
+    app.run()
