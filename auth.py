@@ -1,7 +1,7 @@
 """
 This file is to check autentcation users and connect with AUTH.
 written partially by Obda Al Ahdab
-project number 3 in NANO degree for Udacity.
+project number 5 in NANO degree for Udacity.
 I would like to refer to this page it helped me with decode header:'https://www.programcreek.com/python/example/118165/jose.jwt.JWTClaimsError'
 """
 # --------------------------------------------------------------------------------------#
@@ -78,7 +78,6 @@ def get_token_auth_header():
 # --------------------------------------------------------------------------------------#
 # Check permissions.
 #   implement check_permissions(permission, payload) method
-#   NOTE it is TODO item.
 # --------------------------------------------------------------------------------------#
 
 
@@ -97,7 +96,6 @@ def check_permissions(permission, payload):
 # --------------------------------------------------------------------------------------#
 # Verify JWT.
 #   implement verify_decode_jwt(token) method.
-#   NOTE it is TODO item.
 # --------------------------------------------------------------------------------------#
 
 
