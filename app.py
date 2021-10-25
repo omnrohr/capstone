@@ -12,9 +12,9 @@ def create_app():
     setup_db(app)
     CORS(app)
 
-    # app.config.from_object('config')
-    # db_drop_and_create_all()
-    # insert_demo_data()
+    app.config.from_object('config')
+    db_drop_and_create_all()
+    insert_demo_data()
 
     @app.route('/')
     def home():

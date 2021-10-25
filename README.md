@@ -1,6 +1,6 @@
 # Casting Agency
 
-Site live at : [url name](urlpath)
+Site live at : [afternoon-earth-48253.herokuapp.com](https://afternoon-earth-48253.herokuapp.com/)
 
 This project is my capstone project for Udacity's Fullstack Nanodegree program.
 It models a company that is responsible for creating movies and managing and assigning actors to those movies.
@@ -26,13 +26,15 @@ In order to use the API users need to be authenticated. Jwt tokens can be genera
   "movies": [
     {
       "id": 1,
-      "release_date": "Mon, 06 May 2019 00:00:00 GMT",
-      "title": "Terminator Dark Fate"
+      "release_date": "2020-7-19",
+      "title": "Justice League Dark",
+      "discription": "https://en.wikipedia.org/wiki/Justice_League_Dark:_Apokolips_War"
     },
     {
       "id": 2,
-      "release_date": "Tue, 06 May 2003 00:00:00 GMT",
-      "title": "Terminator Rise of the machines"
+      "release_date": "2020-9-1",
+      "title": "Soul",
+      "discription": "https://en.wikipedia.org/wiki/Soul_(2020_film)"
     }
     ......
   ],
@@ -52,9 +54,9 @@ In order to use the API users need to be authenticated. Jwt tokens can be genera
 ```json
 {
   "movie": {
-    "id": 1,
-    "release_date": "Mon, 06 May 2019 00:00:00 GMT",
-    "title": "Terminator Dark Fate"
+      "release_date": "2020-7-19",
+      "title": "Justice League Dark",
+      "discription": "https://en.wikipedia.org/wiki/Justice_League_Dark:_Apokolips_War"
   },
   "success": true
 }
@@ -73,8 +75,9 @@ In order to use the API users need to be authenticated. Jwt tokens can be genera
 {
   "movie": {
     "id": 3,
-    "release_date": "Wed, 06 May 2020 00:00:00 GMT",
-    "title": "Natasha romanov"
+      "release_date": "2020-7-19",
+      "title": "Justice League Dark",
+      "discription": "https://en.wikipedia.org/wiki/Justice_League_Dark:_Apokolips_War"
   },
   "success": true
 }
@@ -93,8 +96,9 @@ In order to use the API users need to be authenticated. Jwt tokens can be genera
 {
   "movie": {
     "id": 3,
-    "release_date": "Wed, 06 May 2020 00:00:00 GMT",
-    "title": "Natasha romanov patched"
+      "release_date": "2020-7-19",
+      "title": "Justice League Dark",
+      "discription": "https://en.wikipedia.org/wiki/Justice_League_Dark:_Apokolips_War"
   },
   "success": true
 }
