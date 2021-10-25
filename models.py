@@ -22,38 +22,38 @@ def setup_db(app, database_path=database_path):
 
 
 def db_drop_and_create_all():
-    # db.drop_all()
+    db.drop_all()
     db.create_all()
 
 
-def insert_demo_data():
-    """Insert some data for test"""
+# def insert_demo_data():
+#     """Insert some data for test"""
 
-    actor1 = Actor(name='Matt Ryan')
-    actor2 = Actor(name='Jerry O\'Connell')
-    actor3 = Actor(name=' Jamie Foxx')
-    actor4 = Actor(name='Vishwak Sen')
+#     actor1 = Actor(name='Matt Ryan')
+#     actor2 = Actor(name='Jerry O\'Connell')
+#     actor3 = Actor(name=' Jamie Foxx')
+#     actor4 = Actor(name='Vishwak Sen')
 
-    movie1 = Movie(title='Justice League Dark', release_date='2020-7-19',
-                   description='https://en.wikipedia.org/wiki/Justice_League_Dark:_Apokolips_War')
-    movie2 = Movie(title='Soul', release_date='2020-9-1',
-                   description='https://en.wikipedia.org/wiki/Soul_(2020_film)')
-    movie3 = Movie(title='The Three', release_date='2020-02-28',
-                   description='https://en.wikipedia.org/wiki/Vishwak_Sen')
+#     movie1 = Movie(title='Justice League Dark', release_date='2020-7-19',
+#                    description='https://en.wikipedia.org/wiki/Justice_League_Dark:_Apokolips_War')
+#     movie2 = Movie(title='Soul', release_date='2020-9-1',
+#                    description='https://en.wikipedia.org/wiki/Soul_(2020_film)')
+#     movie3 = Movie(title='The Three', release_date='2020-02-28',
+#                    description='https://en.wikipedia.org/wiki/Vishwak_Sen')
 
-    movie1.actors.append(actor1)
-    movie1.actors.append(actor2)
-    movie2.actors.append(actor3)
-    movie3.actors.append(actor4)
+#     movie1.actors.append(actor1)
+#     movie1.actors.append(actor2)
+#     movie2.actors.append(actor3)
+#     movie3.actors.append(actor4)
 
-    actor1.insert()
-    actor2.insert()
-    actor3.insert()
-    actor4.insert()
+#     actor1.insert()
+#     actor2.insert()
+#     actor3.insert()
+#     actor4.insert()
 
-    movie1.insert()
-    movie2.insert()
-    movie3.insert()
+#     movie1.insert()
+#     movie2.insert()
+#     movie3.insert()
 
 
 movie_actor = db.Table(

@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, abort, jsonify, redirect, url_for, render_template
+from flask import Flask, request, abort, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
@@ -12,10 +12,9 @@ def create_app():
     setup_db(app)
     CORS(app)
 
-    app.config.from_object('config')
-
+    # app.config.from_object('config')
     # db_drop_and_create_all()
-    insert_demo_data()
+    # insert_demo_data()
 
     @app.route('/')
     def home():
