@@ -1,4 +1,5 @@
 
+export EXCITED='true'
 export  DATABASE_URL='postgres://fuitseygkbawsy:4eff8566d8b428fe7f87b33e8d6f4594ada90d85c3849e19216e700ec68de320@ec2-67-202-36-228.compute-1.amazonaws.com:5432/db5279hoips9sj'
 
 export AUTH0_DOMAIN='dev-uiw51rx8.us.auth0.com'

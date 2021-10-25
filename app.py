@@ -5,13 +5,11 @@ from flask_cors import CORS
 
 from models import Movie, Actor, setup_db, db_drop_and_create_all, insert_demo_data, db
 from auth import AuthError, requires_auth
-from secrets import *
 
 
 def create_app():
     app = Flask(__name__)
     setup_db(app)
-    app.secret_key = "secret key"
     CORS(app)
 
     app.config.from_object('config')
