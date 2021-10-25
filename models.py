@@ -2,7 +2,7 @@ from sqlalchemy import Table, Column, Integer, ForeignKey, String, Date
 from flask_sqlalchemy import SQLAlchemy
 import os
 from flask_migrate import Migrate
-
+import re
 
 db = SQLAlchemy()
 '''
@@ -10,6 +10,8 @@ setup_db(app)
     binds a flask application and a SQLAlchemy service
 '''
 database_path = os.environ['DATABASE_URL']
+if database_path.startswith("postgres://"):
+    database_path = database_path.replace("postgres://", "postgresql://", 1)
 
 
 def setup_db(app, database_path=database_path):
