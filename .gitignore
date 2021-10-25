@@ -1,6 +1,6 @@
 z2menv
+setup.sh
 __pycache__
 Pipfile
 Pipfile.lock
 pyvenv.cfg
-setup.sh
